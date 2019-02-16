@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#生成小于36的随机数
+#生成01-35的随机数
 function FrontGetLoto() {
     r=$((RANDOM%36))
     if [ $r -eq 0 ];then
@@ -13,7 +13,7 @@ function FrontGetLoto() {
 	fi
 }
 
-#生成小于13的随机数
+#生成01-12的随机数
 function EndGetLoto() {
     r=$((RANDOM%13))
     if [ $r -eq 0 ];then
