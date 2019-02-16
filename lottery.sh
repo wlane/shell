@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+#生成小于36的随机数
 function FrontGetLoto() {
     r=$((RANDOM%36))
     if [ $r -eq 0 ];then
@@ -13,7 +13,7 @@ function FrontGetLoto() {
 	fi
 }
 
-
+#生成小于13的随机数
 function EndGetLoto() {
     r=$((RANDOM%13))
     if [ $r -eq 0 ];then
@@ -26,6 +26,7 @@ function EndGetLoto() {
 	fi
 }
 
+#生成前区的5个号码
 function FrontGetNumber() {
     m=$({ FrontGetLoto; FrontGetLoto; FrontGetLoto; FrontGetLoto; FrontGetLoto; } | sort -n)
     n=$(echo $m |tr ' ' '\n' |uniq -d)
@@ -36,7 +37,7 @@ function FrontGetNumber() {
     fi
 }
 
-
+#生成后区的2个号码
 function EndGetNumber() {
     s=$({ EndGetLoto; EndGetLoto; } | sort -n)
     t=$(echo $s |tr ' ' '\n' |uniq -d)
@@ -53,7 +54,7 @@ if [ $# -ne 1 ] || [ $1 -lt 1 -o $1 -gt 99 ];then
     exit
 fi
 
-
+#生成的号码拼接
 i=1
 while [ $i -le $1 ]
 do
