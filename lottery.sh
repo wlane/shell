@@ -36,7 +36,16 @@ function FrontGetNumber() {
         return 1
     fi
 }
-
+#生成前区的6个号码
+function sixFrontGetNumber() {
+    sm=$({ FrontGetLoto; FrontGetLoto; FrontGetLoto; FrontGetLoto; FrontGetLoto; FrontGetLoto; } | sort -n)
+    sn=$(echo $m |tr ' ' '\n' |uniq -d)
+    if [ -z ${sn} ];then
+        return 0
+    else
+        return 1
+    fi
+}
 #生成后区的2个号码
 function EndGetNumber() {
     s=$({ EndGetLoto; EndGetLoto; } | sort -n)
@@ -49,14 +58,25 @@ function EndGetNumber() {
 }
 
 
-if [ $# -ne 1 ] || [ $1 -lt 1 -o $1 -gt 99 ];then
-    echo "Usage: $0 [1-99]"
-    exit
-fi
+#生成后区的3个号码
+function threeEndGetNumber() {
+    ss=$({ EndGetLoto; EndGetLoto; EndGetLoto; } | sort -n)
+    st=$(echo $s |tr ' ' '\n' |uniq -d)
+    if [ -z ${st} ];then
+        return 0
+    else
+        return 1
+    fi
+}
+
+#if [ $# -ne 1 ] || [ $1 -lt 1 -o $1 -gt 99 ];then
+#    echo "Usage: $0 [1-99]"
+#    exit
+#fi
 
 #生成的号码拼接
 i=1
-while [ $i -le $1 ]
+while [ $i -le 1 ]
 do
     FrontGetNumber
     if [ $? -ne 0 ];then
@@ -76,5 +96,31 @@ do
     fi
 
     echo $m $s
+    i=$((i+1))
+done
+
+
+#生成的号码拼接
+i=2
+while [ $i -le 2 ]
+do
+    sixFrontGetNumber
+    if [ $? -ne 0 ];then
+        continue
+    fi
+
+    threeEndGetNumber
+    if [ $? -ne 0 ];then
+        continue
+    fi
+
+    j=$i
+    if [ $j -le 9 ];then
+        echo -n "第0$j组: "
+    else
+        echo -n "第$j组: "
+    fi
+
+    echo ${sm} ${ss}
     i=$((i+1))
 done
