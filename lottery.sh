@@ -6,7 +6,7 @@ function FrontGetLoto() {
     if [ $r -eq 0 ];then
 		r=$((r+1))
 	fi
-	if [ $r -lt 9 ];then
+	if [ $r -le 9 ];then
 		echo "0$r"
     else
         echo $r
@@ -19,7 +19,7 @@ function EndGetLoto() {
     if [ $r -eq 0 ];then
 		r=$((r+1))
 	fi
-	if [ $r -lt 9 ];then
+	if [ $r -le 9 ];then
 		echo "0$r"
     else
         echo $r
@@ -83,7 +83,7 @@ do
         continue
     fi
 
-    EndGetNumber
+    threeEndGetNumber
     if [ $? -ne 0 ];then
         continue
     fi
@@ -95,7 +95,7 @@ do
         echo -n "第$j组: "
     fi
 
-    echo $m $s
+    echo $m ${ss}
     i=$((i+1))
 done
 
@@ -109,7 +109,7 @@ do
         continue
     fi
 
-    threeEndGetNumber
+    EndGetNumber
     if [ $? -ne 0 ];then
         continue
     fi
@@ -121,6 +121,6 @@ do
         echo -n "第$j组: "
     fi
 
-    echo ${sm} ${ss}
+    echo ${sm} ${s}
     i=$((i+1))
 done
